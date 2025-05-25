@@ -1,20 +1,27 @@
 import { IFeed } from "model/feed.interface";
 import { feedMockElMundo, feedMockList } from "../common/mocks";
 import { NextFunction, Request, Response } from "express";
+import { RestApiError } from "../common/rest-api.error";
 
 export class FeedController {
-    async get(request: Request, response: Response): Promise<void> {
+    async get(request: Request, response: Response, next: NextFunction): Promise<void> {
+
+            throw new Error('Testing NON catched exceptions.');
         try {
-            response.status(200).json([feedMockList]);
+
+            throw new Error('Testing catched exceptions.');
+            // response.status(200).json(feedMockList);
         } catch (error: any) {
-            this.handleGeneralError(error, 'Error fetching feeds.');
+            next(new RestApiError(
+                500,
+                'Error fetching users.',
+                { error }
+            ));
         }
     }
 
     async getOne(request: Request, response: Response, next: NextFunction): Promise<void> {
         try {
-            console.log(`Request params: ${JSON.stringify({ params: request.params })}`);
-
             response.status(200).json(
                 feedMockList.filter((feed: IFeed) => ( feed.id === request.params?.id ))
             );
