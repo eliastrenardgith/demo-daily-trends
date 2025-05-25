@@ -4,17 +4,14 @@ import { NextFunction, Request, Response } from "express";
 import { RestApiError } from "../common/rest-api.error";
 
 export class FeedController {
+    // TODO Add pagination.
     async get(request: Request, response: Response, next: NextFunction): Promise<void> {
-
-            throw new Error('Testing NON catched exceptions.');
         try {
-
-            throw new Error('Testing catched exceptions.');
-            // response.status(200).json(feedMockList);
+            response.status(200).json(feedMockList);
         } catch (error: any) {
             next(new RestApiError(
                 500,
-                'Error fetching users.',
+                'Error fetching feeds.',
                 { error }
             ));
         }
@@ -26,7 +23,11 @@ export class FeedController {
                 feedMockList.filter((feed: IFeed) => ( feed.id === request.params?.id ))
             );
         } catch (error: any) {
-            this.handleGeneralError(error, 'Error fetching one feed.');
+            next(new RestApiError(
+                500,
+                'Error fetching feed.',
+                { error }
+            ));
         }
     }
 
@@ -34,7 +35,11 @@ export class FeedController {
         try {
             response.status(201).json(feedMockElMundo);
         } catch (error: any) {
-            this.handleGeneralError(error, 'Error creating one feed.');
+            next(new RestApiError(
+                500,
+                'Error creating feed.',
+                { error }
+            ));
         }
     }
 
@@ -42,7 +47,11 @@ export class FeedController {
         try {
             response.status(200).json(feedMockElMundo);
         } catch (error: any) {
-            this.handleGeneralError(error, 'Error updating one feed.');
+            next(new RestApiError(
+                500,
+                'Error updating one feed.',
+                { error }
+            ));
         }
 
     }
@@ -51,14 +60,13 @@ export class FeedController {
         try {
             response.status(200).json(feedMockElMundo);
         } catch (error: any) {
-            this.handleGeneralError(error, 'Error deleting one feed.');
+            next(new RestApiError(
+                500,
+                'Error deleting one feed.',
+                { error }
+            ));
         }
 
-    }
-
-    private handleGeneralError(error: any, message?: string): void {
-        console.error(message || 'Unexpected error.');
-        error && console.error(JSON.stringify({ error }));
     }
 }
 
