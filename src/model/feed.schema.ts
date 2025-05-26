@@ -1,5 +1,14 @@
 import mongoose, { Schema } from 'mongoose';
-import { IFeed } from './feed.interface';
+
+export interface IFeed extends Document {
+  name: string;
+
+  url: string;
+
+  createdAt: Date;
+
+  updatedAt: Date;
+}
 
 const FeedSchema: Schema = new Schema({
   name: {
@@ -14,4 +23,4 @@ const FeedSchema: Schema = new Schema({
   },
 });
 
-export default mongoose.model<IFeed>('feed', FeedSchema);
+export default mongoose.model<IFeed>('Feed', FeedSchema);
