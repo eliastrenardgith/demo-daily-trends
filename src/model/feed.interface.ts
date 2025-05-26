@@ -1,7 +1,9 @@
 export interface IFeed {
-    id: string;
-    
-    name: string;
-    
-    url:string;
-} 
+  name: string;
+
+  url: string;
+
+  createdAt: Date;
+
+  updatedAt: Date;
+}

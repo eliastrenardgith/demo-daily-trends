@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import feedController from '../controllers/feed.controller';
-import { bodyMiddleware, paramsMiddleware, RequestPropertyNameEnum } from '../middleware/validation.middleware';
+import { bodyMiddleware, paramsMiddleware } from '../middleware/validation.middleware';
 import { UpdateFeedDto } from '../model/dto/update-feed.dto';
 import { CreateFeedDto } from '../model/dto/create-feed.dto';
-import { CrudUrlParamsDto } from '../model/crud-url-params.dto';
+import { CrudUrlParamsDto } from '../model/dto/crud-url-params.dto';
 
 const feedRouter: Router = Router();
 
