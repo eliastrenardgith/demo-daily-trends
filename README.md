@@ -12,6 +12,8 @@ PORT=3000
 
 MONGODB_SERVER_URI=mongodb://yourmongodbserver:27017
 MONGODB_DB_NAME=db_name
+MONGODB_USER=mongodb_user
+MONGODB_PASSWORD=mongodb_password
 ```
 
 Open a terminal in the project root directory, and execute the following npm script to start the development server.
