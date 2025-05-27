@@ -21,7 +21,9 @@ class FeedService {
   }
 
   async updateOne(id: string, dto: Partial<IFeed>): Promise<IFeed | null> {
-    return FeedModel.findByIdAndUpdate(id, dto, { new: true });
+    const news: INews[] = await feedReaderService.extractNews(dto.url);
+
+    return FeedModel.findByIdAndUpdate(id, { ...dto, news }, { new: true });
   }
 
   async deleteOne(id: string): Promise<IFeed | null> {
