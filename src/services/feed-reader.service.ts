@@ -1,14 +1,6 @@
 import axios from 'axios';
-import { IFeed, INews } from '../model/feed.schema';
+import { INews } from '../model/feed.schema';
 import * as cheerio from 'cheerio';
-
-const mockedNews: INews[] = [
-  { title: 'News 1', summary: 'This is the new summary.' },
-  { title: 'News 2', summary: 'This is the new summary.' },
-  { title: 'News 3', summary: 'This is the new summary.' },
-  { title: 'News 4', summary: 'This is the new summary.' },
-  { title: 'News 5', summary: 'This is the new summary.' },
-];
 
 class FeedReaderService {
   /**

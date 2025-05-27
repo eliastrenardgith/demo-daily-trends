@@ -3,6 +3,11 @@ import mongoose, { Schema } from 'mongoose';
 export interface INews {
   title: string;
   summary: string;
+  /*
+  TODO: Try to add more properties like:
+  url of the news
+  author
+  */
 }
 
 export interface IFeed extends Document {
