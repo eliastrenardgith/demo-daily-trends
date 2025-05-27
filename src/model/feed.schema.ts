@@ -3,7 +3,6 @@ import mongoose, { Schema } from 'mongoose';
 export interface INews {
   title: string;
   summary: string;
-  imageUrl: string;
 }
 
 export interface IFeed extends Document {
@@ -25,7 +24,6 @@ const FeedSchema: Schema = new Schema(
       {
         title: { type: String, required: true },
         summary: { type: String, required: true },
-        imageUrl: { type: String, required: false },
       },
     ],
   },
