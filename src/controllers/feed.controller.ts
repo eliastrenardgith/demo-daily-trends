@@ -4,10 +4,18 @@ import feedService from '../services/feed.service';
 import { IFeed } from '../model/feed.schema';
 
 export class FeedController {
-  // TODO Add pagination.
   async get(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
-      response.status(200).json(await feedService.find());
+      const { limit, page, searchTerm } = request.query;
+
+      response
+        .status(200)
+        .json(
+          await feedService.find(
+            { limit: Number.parseInt(limit as string), page: Number.parseInt(page as string) },
+            { searchTerm: searchTerm as string },
+          ),
+        );
     } catch (error: any) {
       next(new RestApiError(500, 'Error fetching feeds.', { error }));
     }

@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 
 export enum RequestPropertyNameEnum {
   params = 'params',
-  // query = 'query',
+  query = 'query',
   body = 'body',
 }
 
@@ -25,6 +25,16 @@ export function paramsMiddleware<T extends object>(dtoClass: new () => T) {
  */
 export function bodyMiddleware<T extends object>(dtoClass: new () => T) {
   return validationMiddleware(dtoClass, RequestPropertyNameEnum.body);
+}
+
+/**
+ * Validates the request query parameters, like pagination.
+ *
+ * @param dtoClass The DTO class that defines the request query parameters with class-validator.
+ * @returns If is invalid, the response will be a 400 error. Otherwise continues with the next middleware.
+ */
+export function queryMiddleware<T extends object>(dtoClass: new () => T) {
+  return validationMiddleware(dtoClass, RequestPropertyNameEnum.query);
 }
 
 function validationMiddleware<T extends object>(dtoClass: new () => T, requestProp: RequestPropertyNameEnum) {

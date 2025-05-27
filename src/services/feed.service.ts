@@ -1,4 +1,7 @@
+import { FindFeedDto } from '../model/dto/find-feed.dto';
+import { defaultPaginationQueryDto, PaginationQueryDto } from '../model/dto/pagination-query.dto';
 import FeedModel, { IFeed } from '../model/feed.schema';
+import { IPagination } from '../model/interfaces/pagination.interface';
 
 class FeedService {
   async createOne(dto: Partial<IFeed>): Promise<IFeed> {
@@ -15,9 +18,39 @@ class FeedService {
     return FeedModel.findByIdAndDelete(id);
   }
 
-  // TODO Implement pagination and query.
-  async find(): Promise<IFeed[]> {
-    return FeedModel.find({});
+  async find(pagination?: PaginationQueryDto, searchDto?: FindFeedDto): Promise<IPagination> {
+    try {
+      let filter: any = {};
+
+      if (searchDto?.searchTerm) {
+        // A regular expression to match case-sensitive.
+        const searchRegex = new RegExp(searchDto.searchTerm, 'i');
+
+        filter = {
+          $or: [{ url: { $regex: searchRegex } }, { name: { $regex: searchRegex } }],
+        };
+      }
+
+      const limit: number = pagination?.limit || 5;
+      const page: number = pagination?.page || 1;
+      const skip: number = (page - 1) * limit;
+
+      const totalFound = await FeedModel.countDocuments();
+
+      const feeds: IFeed[] = await FeedModel.find(filter).skip(skip).limit(limit);
+
+      const totalPages = Math.ceil(totalFound / limit);
+
+      return {
+        page,
+        totalCount: totalFound,
+        totalPages,
+        items: feeds,
+      };
+    } catch (error: any) {
+      console.error(`Error searching feeds. ${JSON.stringify({ searchDto, pagination })}`);
+      throw error;
+    }
   }
 
   async findOne(id: string): Promise<IFeed | null> {
