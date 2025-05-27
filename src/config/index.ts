@@ -25,6 +25,9 @@ const config = {
   mongo: {
     uri: `mongodb://${finalMongoDbUri}?authSource=admin`,
   },
+  feed: {
+    maxNewsCount: process.env.FEED_MAX_NEWS_COUNT ? parseInt(process.env.FEED_MAX_NEWS_COUNT) : 5,
+  },
 };
 
 export default config;

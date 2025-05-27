@@ -1,13 +1,23 @@
 import { FindFeedDto } from '../model/dto/find-feed.dto';
 import { PaginationQueryDto } from '../model/dto/pagination-query.dto';
-import FeedModel, { IFeed } from '../model/feed.schema';
+import FeedModel, { IFeed, INews } from '../model/feed.schema';
 import { IPagination } from '../model/interfaces/pagination.interface';
+import feedReaderService from './feed-reader.service';
 
 class FeedService {
   async createOne(dto: Partial<IFeed>): Promise<IFeed> {
-    const newFeed = new FeedModel(dto);
+    try {
+      const news: INews[] = await feedReaderService.extractNews(dto.url);
 
-    return newFeed.save();
+      const newFeed = new FeedModel({
+        ...dto,
+        news,
+      });
+      return newFeed.save();
+    } catch (error) {
+      console.error('Error creating Feed.');
+      throw error;
+    }
   }
 
   async updateOne(id: string, dto: Partial<IFeed>): Promise<IFeed | null> {
