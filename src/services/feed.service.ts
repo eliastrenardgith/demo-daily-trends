@@ -1,5 +1,5 @@
 import { FindFeedDto } from '../model/dto/find-feed.dto';
-import { defaultPaginationQueryDto, PaginationQueryDto } from '../model/dto/pagination-query.dto';
+import { PaginationQueryDto } from '../model/dto/pagination-query.dto';
 import FeedModel, { IFeed } from '../model/feed.schema';
 import { IPagination } from '../model/interfaces/pagination.interface';
 

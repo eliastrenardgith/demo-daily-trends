@@ -9,5 +9,3 @@ export class PaginationQueryDto {
   @IsOptional()
   page?: number;
 }
-
-export const defaultPaginationQueryDto: PaginationQueryDto = { limit: 5, page: 1 };
