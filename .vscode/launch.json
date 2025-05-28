@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch API (TS-Node)",
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register" // Use ts-node to register the TypeScript compiler
+      ],
+      "args": [
+        "${workspaceFolder}/src/server.ts" // Your main entry file
+      ],
+      "cwd": "${workspaceFolder}", // Start the debugger in the project root
+      "protocol": "inspector", // Use the Inspector protocol for modern Node.js debugging
+      "envFile": "${workspaceFolder}/.env.development", // Load environment variables from this file
+      "console": "integratedTerminal", // Display console output in VS Code's integrated terminal
+      "internalConsoleOptions": "neverOpen", // Don't open the debug console automatically
+      "skipFiles": [
+        "<node_internals>/**",
+        "node_modules/**" // Skip debugging files inside node_modules
+      ],
+      "sourceMaps": true, // Enable source maps for debugging TypeScript
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js" // Tell the debugger where to find compiled JS (for source maps)
+      ],
+      "preLaunchTask": "tsc: build - tsconfig.json" // Optional: Build before launching (recommended)
+    }
+  ]
+}

@@ -14,6 +14,9 @@ MONGODB_SERVER_URI=mongodb://yourmongodbserver:27017
 MONGODB_DB_NAME=db_name
 MONGODB_USER=mongodb_user
 MONGODB_PASSWORD=mongodb_password
+
+# Maximum number of news that will be scraped per feed.
+FEED_MAX_NEWS_COUNT=5
 ```
 
 Open a terminal in the project root directory, and execute the following npm script to start the development server.
