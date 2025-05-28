@@ -2,7 +2,7 @@ import axios from 'axios';
 import { INews } from '../model/feed.schema';
 import * as cheerio from 'cheerio';
 import config from '../config';
-import { IPartialScraper, SummaryScrapers, TitleScrapers } from './strategies/scraping.strategies';
+import { IPartialScraper, SummaryScrapers, TitleScrapers, UrlScrappers } from './strategies/scraping.strategies';
 
 class FeedReaderService {
   /**
@@ -43,6 +43,7 @@ class FeedReaderService {
   private async scrapNews($: cheerio.CheerioAPI, articleHtmlElement: any): Promise<INews | null> {
     const title: string | null = await this.scrapSpecific($, articleHtmlElement, TitleScrapers);
     const summary: string | null = await this.scrapSpecific($, articleHtmlElement, SummaryScrapers);
+    const url: string | null = await this.scrapSpecific($, articleHtmlElement, UrlScrappers);
 
     if (!title) {
       return null;
@@ -51,6 +52,7 @@ class FeedReaderService {
     return {
       title: title as string,
       summary: summary as string,
+      url: url as string,
     };
   }
 

@@ -3,6 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 export interface INews {
   title: string;
   summary: string;
+  url: string;
   /*
   TODO: Try to add more properties like:
   url of the news
@@ -29,6 +30,7 @@ const FeedSchema: Schema = new Schema(
       {
         title: { type: String, required: true },
         summary: { type: String, required: true },
+        url: { type: String, required: true },
       },
     ],
   },

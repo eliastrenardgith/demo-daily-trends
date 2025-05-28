@@ -54,6 +54,21 @@ export class TitleScraperElMundo implements IPartialScraper {
   }
 }
 
+/**
+ * Defines a strategy to extract the url of a new.
+ * So far, it works with https://www.elmundo.es/ and https://www.elmundo.es/.
+ */
+export class UrlScrapper implements IPartialScraper {
+  async scrap($: cheerio.CheerioAPI, articleHtmlElement: any): Promise<string | null> {
+    try {
+      // TODO: Normalize characters �.
+      return $(articleHtmlElement).find('header a').attr('href') as string;
+    } catch (error) {
+      return null;
+    }
+  }
+}
+
 export const TitleScrapers: IPartialScraper[] = [
   new TitleScraperElPais(),
   new TitleScraperElMundo(),
@@ -65,3 +80,5 @@ export const SummaryScrapers: IPartialScraper[] = [
   // elmundo.es does not have news summary in its main page.
   // Add more summary scraping strategies to extract the news summary.
 ];
+
+export const UrlScrappers: IPartialScraper[] = [new UrlScrapper()];
