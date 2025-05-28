@@ -7,7 +7,7 @@ import feedReaderService from './feed-reader.service';
 class FeedService {
   async createOne(dto: Partial<IFeed>): Promise<IFeed> {
     try {
-      const news: INews[] = await feedReaderService.extractNews(dto.url);
+      const news: INews[] = await feedReaderService.extractNews(dto.url as string);
 
       const newFeed = new FeedModel({
         ...dto,
@@ -21,7 +21,7 @@ class FeedService {
   }
 
   async updateOne(id: string, dto: Partial<IFeed>): Promise<IFeed | null> {
-    const news: INews[] = await feedReaderService.extractNews(dto.url);
+    const news: INews[] = await feedReaderService.extractNews(dto.url as string);
 
     return FeedModel.findByIdAndUpdate(id, { ...dto, news }, { new: true });
   }
