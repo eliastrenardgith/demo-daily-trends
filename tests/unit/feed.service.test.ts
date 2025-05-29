@@ -14,6 +14,7 @@ import {
   updateFeedDtoMock,
 } from '../mocks';
 import { IPagination } from '../../src/model/interfaces/pagination.interface';
+import { Document } from 'mongoose';
 
 jest.mock('../../src/model/feed.schema');
 jest.mock('../../src/services/feed-reader.service');
@@ -128,7 +129,7 @@ describe('UserService', () => {
     it('should find one feed by its URL', async () => {
       (FeedModel.findOne as jest.Mock).mockResolvedValue(savedFeedMock);
 
-      const foundFeed: IFeed | null = await FeedService.findOneByUrl(savedFeedMock.url);
+      const foundFeed: Document<IFeed> | null = await FeedService.findOneByUrl(savedFeedMock.url);
 
       expect(FeedModel.findOne).toHaveBeenCalledTimes(1);
       expect(foundFeed).toEqual(savedFeedMock);
