@@ -46,9 +46,17 @@ export class FeedController {
 
   async createOne(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
-      const newFeed: IFeed = await feedService.createOne(request.body as IFeed);
+      const feedUrl: string = (request.body as IFeed).url;
+      const existentFeed: IFeed | null = await feedService.findOneByUrl(feedUrl);
 
-      response.status(201).json(newFeed);
+      if (existentFeed) {
+        response.status(409).json({
+          message: `Conflict: A Feed with URL: '${feedUrl}' already exist. Duplication is NOT ALLOWED.`,
+        });
+      } else {
+        const newFeed: IFeed = await feedService.createOne(request.body as IFeed);
+        response.status(201).json(newFeed);
+      }
     } catch (error: any) {
       next(new RestApiError(500, 'Error creating feed.', { error }));
     }

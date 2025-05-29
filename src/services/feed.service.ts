@@ -80,6 +80,15 @@ class FeedService {
       throw error;
     }
   }
+
+  async findOneByUrl(url: string): Promise<IFeed | null> {
+    try {
+      return FeedModel.findOne({ url });
+    } catch (error) {
+      console.error(`Error finding one feed by URL: '${url}'.`);
+      throw error;
+    }
+  }
 }
 
 export default new FeedService();
