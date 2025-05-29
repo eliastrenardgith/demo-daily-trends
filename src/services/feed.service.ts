@@ -1,3 +1,4 @@
+import { Document } from 'mongoose';
 import { FindFeedDto } from '../model/dto/find-feed.dto';
 import { PaginationQueryDto } from '../model/dto/pagination-query.dto';
 import FeedModel, { IFeed, INews } from '../model/feed.schema';
@@ -81,9 +82,9 @@ class FeedService {
     }
   }
 
-  async findOneByUrl(url: string): Promise<IFeed | null> {
+  async findOneByUrl(url: string): Promise<Document<IFeed> | null> {
     try {
-      return FeedModel.findOne({ url });
+      return FeedModel.findOne({ url }, null, {});
     } catch (error) {
       console.error(`Error finding one feed by URL: '${url}'.`);
       throw error;
