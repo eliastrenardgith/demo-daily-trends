@@ -10,7 +10,7 @@ beforeAll(async () => {
   await mongoose.connect(mongoUri);
 });
 
-beforeEach(async () => {
+beforeAll(async () => {
   // Clear all collections before each test
   const collections = mongoose.connection.collections;
   for (const key in collections) {
@@ -20,6 +20,11 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
+  const collections = mongoose.connection.collections;
+  for (const key in collections) {
+    const collection = collections[key];
+    await collection.deleteMany({});
+  }
   // Disconnect and stop in-memory MongoDB.
   await mongoose.disconnect();
   await mongo.stop();
