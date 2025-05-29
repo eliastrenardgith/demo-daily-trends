@@ -11,14 +11,14 @@ import * as cheerio from 'cheerio';
  * Defines a common strategy interface.
  */
 export interface IPartialScraper {
-  scrap($: cheerio.CheerioAPI, articleHtmlElement: any): Promise<string | null>;
+  scrap($: cheerio.CheerioAPI, articleHtmlElement: any): string | null;
 }
 
 /**
  * Defines a strategy to extract the title, from a web page like https://elpais.com/.
  */
 export class TitleScraperElPais implements IPartialScraper {
-  async scrap($: cheerio.CheerioAPI, articleHtmlElement: any): Promise<string | null> {
+  scrap($: cheerio.CheerioAPI, articleHtmlElement: any): string | null {
     try {
       return $(articleHtmlElement).find('header a').text().trim();
     } catch (error) {
@@ -31,7 +31,7 @@ export class TitleScraperElPais implements IPartialScraper {
  * Defines a strategy to extract the summary, from a web page like https://elpais.com/.
  */
 export class SummaryScraperElPais implements IPartialScraper {
-  async scrap($: cheerio.CheerioAPI, articleHtmlElement: any): Promise<string | null> {
+  scrap($: cheerio.CheerioAPI, articleHtmlElement: any): string | null {
     try {
       return $(articleHtmlElement).find('p').text().trim();
     } catch (error) {
@@ -44,7 +44,7 @@ export class SummaryScraperElPais implements IPartialScraper {
  * Defines a strategy to extract the title, from a web page like https://www.elmundo.es/.
  */
 export class TitleScraperElMundo implements IPartialScraper {
-  async scrap($: cheerio.CheerioAPI, articleHtmlElement: any): Promise<string | null> {
+  scrap($: cheerio.CheerioAPI, articleHtmlElement: any): string | null {
     try {
       // TODO: Normalize characters �.
       return $(articleHtmlElement).find('header a h2').text().trim();
@@ -59,7 +59,7 @@ export class TitleScraperElMundo implements IPartialScraper {
  * So far, it works with https://www.elmundo.es/ and https://www.elmundo.es/.
  */
 export class UrlScrapper implements IPartialScraper {
-  async scrap($: cheerio.CheerioAPI, articleHtmlElement: any): Promise<string | null> {
+  scrap($: cheerio.CheerioAPI, articleHtmlElement: any): string | null {
     try {
       // TODO: Normalize characters �.
       return $(articleHtmlElement).find('header a').attr('href') as string;

@@ -25,7 +25,7 @@ class FeedReaderService {
       const articles: any = $('article').toArray().slice(0, config.feed.maxNewsCount);
 
       for (const articleHtml of articles) {
-        const newsObj: INews | null = await this.scrapNews($, articleHtml);
+        const newsObj: INews | null = this.scrapNews($, articleHtml);
         newsObj && news.push(newsObj as INews);
       }
 
@@ -40,10 +40,10 @@ class FeedReaderService {
     }
   }
 
-  private async scrapNews($: cheerio.CheerioAPI, articleHtmlElement: any): Promise<INews | null> {
-    const title: string | null = await this.scrapSpecific($, articleHtmlElement, TitleScrapers);
-    const summary: string | null = await this.scrapSpecific($, articleHtmlElement, SummaryScrapers);
-    const url: string | null = await this.scrapSpecific($, articleHtmlElement, UrlScrappers);
+  private scrapNews($: cheerio.CheerioAPI, articleHtmlElement: any): INews | null {
+    const title: string | null = this.scrapSpecific($, articleHtmlElement, TitleScrapers);
+    const summary: string | null = this.scrapSpecific($, articleHtmlElement, SummaryScrapers);
+    const url: string | null = this.scrapSpecific($, articleHtmlElement, UrlScrappers);
 
     if (!title) {
       return null;
@@ -56,16 +56,12 @@ class FeedReaderService {
     };
   }
 
-  private async scrapSpecific(
-    $: cheerio.CheerioAPI,
-    articleHtmlElement: any,
-    scrapers: IPartialScraper[],
-  ): Promise<string | null> {
+  private scrapSpecific($: cheerio.CheerioAPI, articleHtmlElement: any, scrapers: IPartialScraper[]): string | null {
     let result: string | null = null;
 
     // Test all the strategies and return the first valid result.
     for (const scraperStrategy of scrapers) {
-      result = await scraperStrategy.scrap($, articleHtmlElement);
+      result = scraperStrategy.scrap($, articleHtmlElement);
 
       if (!!result) break;
     }

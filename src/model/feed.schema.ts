@@ -29,7 +29,7 @@ const FeedSchema: Schema = new Schema(
     news: [
       {
         title: { type: String, required: true },
-        summary: { type: String, required: true },
+        summary: { type: String, required: false },
         url: { type: String, required: true },
       },
     ],
