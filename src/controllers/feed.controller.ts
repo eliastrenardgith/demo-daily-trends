@@ -80,13 +80,13 @@ export class FeedController {
       const feedUrl: string = (request.body as IFeed).url;
       const existentFeedDoc: Document<IFeed> | null = await feedService.findOneByUrl(feedUrl);
 
-      if (existentFeedDoc?.id !== request?.params?.id) {
+      if (existentFeedDoc && existentFeedDoc.id !== request.params.id) {
         // There is already another document, with the same URL.
         response.status(409).json({
           message: ERROR_MESSAGE_DUPLICATED_URL,
         });
       } else {
-        const updatedFeed: IFeed | null = await feedService.updateOne(request?.params?.id, request.body);
+        const updatedFeed: IFeed | null = await feedService.updateOne(request.params.id, request.body);
 
         if (updatedFeed) {
           response.status(200).json(updatedFeed);
