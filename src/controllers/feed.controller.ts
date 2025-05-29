@@ -3,6 +3,10 @@ import { RestApiError } from '../common/rest-api.error';
 import feedService from '../services/feed.service';
 import { IFeed } from '../model/feed.schema';
 
+const responseNotFound = (response: Response) => {
+  response.status(404).json({ message: 'Not found.' });
+};
+
 export class FeedController {
   async get(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
@@ -23,7 +27,13 @@ export class FeedController {
 
   async getOne(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
-      response.status(200).json(await feedService.findOne(request.params.id));
+      const feed: IFeed | null = await feedService.findOne(request.params.id);
+
+      if (feed) {
+        response.status(200).json(feed);
+      } else {
+        responseNotFound(response);
+      }
     } catch (error: any) {
       next(new RestApiError(500, 'Error fetching feed.', { error }));
     }
@@ -41,7 +51,13 @@ export class FeedController {
 
   async updateOne(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
-      response.status(200).json(await feedService.updateOne(request.params.id, request.body));
+      const updatedFeed: IFeed | null = await feedService.updateOne(request.params.id, request.body);
+
+      if (updatedFeed) {
+        response.status(200).json(updatedFeed);
+      } else {
+        responseNotFound(response);
+      }
     } catch (error: any) {
       next(new RestApiError(500, 'Error updating one feed.', { error }));
     }
@@ -49,7 +65,13 @@ export class FeedController {
 
   async deleteOne(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
-      response.status(200).json(await feedService.deleteOne(request.params.id));
+      const deletedIFeed: IFeed | null = await feedService.deleteOne(request.params.id);
+
+      if (deletedIFeed) {
+        response.status(204).json();
+      } else {
+        responseNotFound(response);
+      }
     } catch (error: any) {
       next(new RestApiError(500, 'Error deleting one feed.', { error }));
     }
