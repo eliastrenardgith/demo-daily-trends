@@ -26,3 +26,5 @@ npm run dev
 ```
 
 In this point you can test the application locally and edit files with watch capabilities.
+
+The Swagger documentation of the REST API is at /api-docs.

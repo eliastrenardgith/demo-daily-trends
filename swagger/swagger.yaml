@@ -1,0 +1,316 @@
+openapi: 3.0.0
+info:
+  title: Feed Management API
+  version: 1.0.0
+  description: API for managing news feeds and articles.
+servers:
+  - url: http://localhost:3000/api
+    description: Local Development Server
+
+paths:
+  /feed:
+    post:
+      summary: Create a new Feed
+      operationId: createFeed
+      description: Creates a new feed by scraping articles from the provided URL of a news web page.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - url
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: The URL of the news web page to scrape.
+                  example: https://elpais.com/
+      responses:
+        '201':
+          description: Feed created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feed'
+        '400':
+          description: Bad Request (e.g., Invalid URL, validation error).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict (e.g., A Feed with that URL already exists).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Conflict: A Feed with that URL already exist. Duplication is NOT ALLOWED.'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    get:
+      summary: Search or Get Multiple Feeds
+      operationId: getManyFeeds
+      description: Retrieves a list of feeds with optional search and pagination.
+      parameters:
+        - in: query
+          name: searchTerm
+          schema:
+            type: string
+          description: Optional search term to filter feeds (e.g., by URL or article content).
+          example: pa
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          description: The page number for pagination.
+          example: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            default: 10
+          description: The number of items per page.
+          example: 1
+      responses:
+        '200':
+          description: List of feeds retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    example: 1
+                  totalCount:
+                    type: integer
+                    example: 1
+                  totalPages:
+                    type: integer
+                    example: 1
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Feed'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /feed/{id}:
+    get:
+      summary: Get a Single Feed by ID
+      operationId: getFeedById
+      description: Retrieves a single feed by its unique MongoDB ID, including its scraped news articles.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: '^[0-9a-fA-F]{24}$' # MongoDB ObjectId pattern
+          required: true
+          description: The MongoDB ID of the feed to retrieve.
+          example: 6838c4f5e8825c5456e71eb1
+      responses:
+        '200':
+          description: Feed retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feed'
+        '400':
+          description: Bad Request (e.g., Invalid ID format).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found (Feed with the given ID does not exist).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      summary: Update a Feed by ID
+      operationId: updateFeedById
+      description: Updates an existing feed by its unique MongoDB ID. This typically triggers a re-scrape to update the news content.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: '^[0-9a-fA-F]{24}$' # MongoDB ObjectId pattern
+          required: true
+          description: The MongoDB ID of the feed to update.
+          example: 683883cfd86019ca2841dac2
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - url
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: The new URL for the feed.
+                  example: https://elpais.com/
+      responses:
+        '200':
+          description: Feed updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feed'
+        '400':
+          description: Bad Request (e.g., Invalid ID format, invalid URL).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found (Feed with the given ID does not exist).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict (e.g., Trying to update to a URL that already exists).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Conflict: A Feed with that URL already exist. Duplication is NOT ALLOWED.'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      summary: Delete a Feed by ID
+      operationId: deleteFeedById
+      description: Deletes a feed and its associated news articles from the database.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            pattern: '^[0-9a-fA-F]{24}$' # MongoDB ObjectId pattern
+          required: true
+          description: The MongoDB ID of the feed to delete.
+          example: 6838c4f5e8825c5456e71eb1
+      responses:
+        '204':
+          description: No Content (Feed deleted successfully).
+        '404':
+          description: Not Found (Feed with the given ID does not exist).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    NewsArticle:
+      type: object
+      properties:
+        _id:
+          type: string
+          pattern: '^[0-9a-fA-F]{24}$'
+          description: The MongoDB ID of the news article.
+          example: 6838c4f5e8825c5456e71eb2
+        title:
+          type: string
+          description: The title of the news article. (Anonymized for documentation)
+          example: 'Sample Article Title'
+        summary:
+          type: string
+          description: A summary of the news article. (Anonymized for documentation)
+          example: 'This is a brief summary of the article content.'
+        url:
+          type: string
+          format: uri
+          description: The original URL of the news article.
+          example: 'https://elpais.com/internacional/2025-05-29/some-article-url.html'
+
+    Feed:
+      type: object
+      properties:
+        _id:
+          type: string
+          pattern: '^[0-9a-fA-F]{24}$'
+          description: The MongoDB ID of the feed.
+          example: 6838c4f5e8825c5456e71eb1
+        url:
+          type: string
+          format: uri
+          description: The URL of the news web page this feed scrapes from.
+          example: https://elpais.com/
+        news:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsArticle'
+          description: An array of news articles scraped from the URL.
+        createdAt:
+          type: string
+          format: date-time
+          description: The timestamp when the feed was created.
+          example: '2025-05-29T20:35:01.260Z'
+        updatedAt:
+          type: string
+          format: date-time
+          description: The timestamp when the feed was last updated.
+          example: '2025-05-29T20:35:01.260Z'
+        __v:
+          type: integer
+          description: Mongoose version key.
+          example: 0
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message.
+          example: 'Validation failed'
+        errors:
+          type: array
+          items:
+            type: string
+          description: Optional array of specific validation error messages.
+          example: ['url must be a URL address']

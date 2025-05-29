@@ -11,6 +11,7 @@ const startServer = async () => {
     console.log(`Express server running.`);
     console.log(`PORT: ${config.port}`);
     console.log(`ENVIRONMENT: ${config.env}`);
+    console.log(`API Docs available at http://localhost:${config.port}/api-docs`);
     console.log('-------------------------------------');
     console.log();
   });
