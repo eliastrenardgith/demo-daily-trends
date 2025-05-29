@@ -9,10 +9,7 @@ class FeedService {
     try {
       const news: INews[] = await feedReaderService.extractNews(dto.url as string);
 
-      const newFeed = new FeedModel({
-        ...dto,
-        news,
-      });
+      const newFeed = new FeedModel({ ...dto, news });
       return newFeed.save();
     } catch (error) {
       console.error('Error creating Feed.');
@@ -21,13 +18,23 @@ class FeedService {
   }
 
   async updateOne(id: string, dto: Partial<IFeed>): Promise<IFeed | null> {
-    const news: INews[] = await feedReaderService.extractNews(dto.url as string);
+    try {
+      const news: INews[] = await feedReaderService.extractNews(dto.url as string);
 
-    return FeedModel.findByIdAndUpdate(id, { ...dto, news }, { new: true });
+      return FeedModel.findByIdAndUpdate(id, { ...dto, news }, { new: true });
+    } catch (error) {
+      console.error('Error updating Feed.');
+      throw error;
+    }
   }
 
   async deleteOne(id: string): Promise<IFeed | null> {
-    return FeedModel.findByIdAndDelete(id);
+    try {
+      return FeedModel.findByIdAndDelete(id);
+    } catch (error) {
+      console.error('Error deleting Feed.');
+      throw error;
+    }
   }
 
   async find(pagination?: PaginationQueryDto, searchDto?: FindFeedDto): Promise<IPagination> {
@@ -66,7 +73,12 @@ class FeedService {
   }
 
   async findOne(id: string): Promise<IFeed | null> {
-    return FeedModel.findById(id);
+    try {
+      return FeedModel.findById(id);
+    } catch (error) {
+      console.error(`Error finding feed by id: ${id}`);
+      throw error;
+    }
   }
 }
 
