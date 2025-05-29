@@ -4,88 +4,94 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-1" value="REST client" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-22" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry y="220" width="570" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-1" value="REST client" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
           <mxGeometry x="-180" y="240" width="100" height="400" as="geometry" />
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-2" value="REST-API" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-2" value="REST-API&lt;div&gt;(FeedController)&lt;/div&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
           <mxGeometry x="10" y="240" width="100" height="500" as="geometry" />
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-3" value="Model" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-3" value="Data Service (FeedService)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
           <mxGeometry x="220" y="240" width="100" height="500" as="geometry" />
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-4" value="Web Scraper" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="440" y="240" width="100" height="500" as="geometry" />
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-4" value="Web Scraping Service (FeedReaderService)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="400" y="240" width="140" height="500" as="geometry" />
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-5" value="Web page" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="690" y="240" width="100" height="400" as="geometry" />
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-5" value="Web page" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="640" y="240" width="100" height="400" as="geometry" />
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-6" value="" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-6" value="" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
           <mxGeometry width="80" relative="1" as="geometry">
             <mxPoint x="-210" y="310" as="sourcePoint" />
             <mxPoint x="-130" y="310" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-7" value="/feed" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1" target="tsgmGJa1XhRt7jZv6oGx-2">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-7" value="/feed" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" target="tsgmGJa1XhRt7jZv6oGx-2" edge="1">
           <mxGeometry width="80" relative="1" as="geometry">
             <mxPoint x="-130" y="330" as="sourcePoint" />
             <mxPoint x="-50" y="330" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-8" value="Extract news" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1" target="tsgmGJa1XhRt7jZv6oGx-4">
-          <mxGeometry x="-0.3946" y="10" width="80" relative="1" as="geometry">
-            <mxPoint x="60" y="370" as="sourcePoint" />
-            <mxPoint x="250" y="370" as="targetPoint" />
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-8" value="Extract news" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry x="-0.0476" y="10" width="80" relative="1" as="geometry">
+            <mxPoint x="60" y="350" as="sourcePoint" />
+            <mxPoint x="270" y="350" as="targetPoint" />
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-10" value="Scrap articles" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-10" value="Get page" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1" target="tsgmGJa1XhRt7jZv6oGx-5">
           <mxGeometry width="80" relative="1" as="geometry">
-            <mxPoint x="490" y="411" as="sourcePoint" />
-            <mxPoint x="739.5" y="411" as="targetPoint" />
+            <mxPoint x="470" y="411" as="sourcePoint" />
+            <mxPoint x="719.5" y="411" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-11" value="Article content" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1" target="tsgmGJa1XhRt7jZv6oGx-4">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-11" value="Page content" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" target="tsgmGJa1XhRt7jZv6oGx-4" edge="1">
           <mxGeometry width="80" relative="1" as="geometry">
-            <mxPoint x="740.5" y="450" as="sourcePoint" />
+            <mxPoint x="690" y="450" as="sourcePoint" />
             <mxPoint x="630" y="450" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-12" value="News objects" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-12" value="News objects" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
           <mxGeometry width="80" relative="1" as="geometry">
-            <mxPoint x="490" y="490" as="sourcePoint" />
+            <mxPoint x="470" y="490" as="sourcePoint" />
             <mxPoint x="270" y="490" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-13" value="Feed object" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-13" value="Feed object" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
           <mxGeometry width="80" relative="1" as="geometry">
             <mxPoint x="270" y="530" as="sourcePoint" />
             <mxPoint x="60" y="530" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-14" value="REST response" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-14" value="REST response" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
           <mxGeometry x="0.2632" y="-10" width="80" relative="1" as="geometry">
             <mxPoint x="60" y="570" as="sourcePoint" />
             <mxPoint x="-130" y="570" as="targetPoint" />
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-15" value="" style="shape=umlDestroy;whiteSpace=wrap;html=1;strokeWidth=3;targetShapes=umlLifeline;" vertex="1" parent="1">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-15" value="" style="shape=umlDestroy;whiteSpace=wrap;html=1;strokeWidth=3;targetShapes=umlLifeline;" parent="1" vertex="1">
           <mxGeometry x="-145" y="630" width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-19" value="Interface Layer Express" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-19" value="Interface Layer Express" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry y="740" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-20" value="Data Layer&amp;nbsp; MongoDB" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-20" value="Data Layer Mongoose" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="210" y="740" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-21" value="Web Scraping Layer Cheerio" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="430" y="740" width="120" height="60" as="geometry" />
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-21" value="Web Scraping Layer Cheerio" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="410" y="740" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-22" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=2;" vertex="1" parent="1">
-          <mxGeometry y="220" width="570" height="410" as="geometry" />
-        </mxCell>
-        <mxCell id="tsgmGJa1XhRt7jZv6oGx-23" value="&lt;b&gt;Application&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="tsgmGJa1XhRt7jZv6oGx-23" value="&lt;b&gt;Application&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="240" y="180" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="3dTNvTB1We5DlGnSc9g1-1" value="Scrap news" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="270" y="381" as="sourcePoint" />
+            <mxPoint x="470" y="380" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
