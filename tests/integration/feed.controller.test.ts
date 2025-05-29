@@ -16,14 +16,14 @@ describe('FeedController. REST-API integration with MongoDB.', () => {
     feedReaderServiceSpy = jest.spyOn(feedReaderService, 'extractNews').mockResolvedValue(scrapedNewsMock);
     // Spy on console.error, console.log and mock its implementation to do nothing
     // This prevents console messages from polluting test output
-    // consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    // consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
   });
 
   afterEach(() => {
     // Restore the original console.error implementation after each test
-    // consoleErrorSpy.mockRestore();
-    // consoleLogSpy.mockRestore();
+    consoleErrorSpy.mockRestore();
+    consoleLogSpy.mockRestore();
     feedReaderServiceSpy.mockRestore();
   });
 
