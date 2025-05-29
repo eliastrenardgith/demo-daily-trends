@@ -13,6 +13,6 @@ feedRouter.get('/', queryMiddleware(PaginationQueryDto), queryMiddleware(FindFee
 feedRouter.get('/:id', paramsMiddleware(CrudUrlParamsDto), feedController.getOne);
 feedRouter.post('/', bodyMiddleware(CreateFeedDto), feedController.createOne);
 feedRouter.put('/:id', paramsMiddleware(CrudUrlParamsDto), bodyMiddleware(UpdateFeedDto), feedController.updateOne);
-feedRouter.delete('/:id', feedController.deleteOne);
+feedRouter.delete('/:id', paramsMiddleware(CrudUrlParamsDto), feedController.deleteOne);
 
 export { feedRouter };

@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsMongoId, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CrudUrlParamsDto {
-  // TODO: Validate this is a mongodb ID.
+  @IsMongoId({ message: 'ID is NOT valid.' })
   @IsString()
   @IsNotEmpty()
   id!: string;
