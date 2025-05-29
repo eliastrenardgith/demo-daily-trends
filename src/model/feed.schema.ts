@@ -4,11 +4,6 @@ export interface INews {
   title: string;
   summary: string;
   url: string;
-  /*
-  TODO: Try to add more properties like:
-  url of the news
-  author
-  */
 }
 
 export interface IFeed extends Document {
@@ -21,7 +16,7 @@ export interface IFeed extends Document {
 const FeedSchema: Schema = new Schema(
   {
     url: {
-      // TODO: This MUST be unique to avoid redundancy.
+      // TODO: This MUST be unique to avoid redundancy?
       type: String,
       required: true,
       trim: true,

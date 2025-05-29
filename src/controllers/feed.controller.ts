@@ -3,6 +3,11 @@ import { RestApiError } from '../common/rest-api.error';
 import feedService from '../services/feed.service';
 import { IFeed } from '../model/feed.schema';
 
+/**
+ * Using a function in this case, because a private method can have side effect in the Express,
+ * when the 'this' context is lost. This would cause an exception of undefined method and
+ * a 500 Error response.
+ */
 const responseNotFound = (response: Response) => {
   response.status(404).json({ message: 'Not found.' });
 };
