@@ -1,7 +1,6 @@
 import FeedService from '../../src/services/feed.service';
 import FeedModel, { IFeed } from '../../src/model/feed.schema';
 import FeedReaderService from '../../src/services/feed-reader.service';
-import { CreateFeedDto } from '../../src/model/dto/create-feed.dto';
 import {
   feedDtoMock,
   newsMock1,

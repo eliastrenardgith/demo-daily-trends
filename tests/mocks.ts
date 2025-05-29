@@ -64,18 +64,18 @@ export const searchFeedResult: IPagination = {
 };
 
 export const htmlMockArticleElPais = `
- <div>
+<div>
     <article>
         <header>
             <a href="https://elpais.com//article/123">Article title</a>
         </header>
         <p>Article summary</p>
     </article>
-</div>   
+</div>
 `;
 
 export const htmlMockArticleElMundo = `
- <div>
+<div>
     <article>
         <header>
             <a href="https://elmundo.es/article/123">
@@ -85,4 +85,76 @@ export const htmlMockArticleElMundo = `
         <p>Article summary</p>
     </article>
 </div>   
+`;
+
+export const dailytestHtmPageMock: string = `
+<div>
+  <div>
+      <article>
+          <header>
+              <a href="https://dailytest.com/news1">News 1</a>
+          </header>
+          <p>This is the news summary.</p>
+      </article>
+  </div>
+  <div>
+      <article>
+          <header>
+              <a href="https://dailytest.com/news2">News 2</a>
+          </header>
+          <p>This is the news summary.</p>
+      </article>
+  </div>
+  <div>
+      <article>
+          <header>
+              <a href="https://dailytest.com/news3">News 3</a>
+          </header>
+          <p>This is the news summary.</p>
+      </article>
+  </div>
+  <div>
+      <article>
+          <header>
+              <a href="https://dailytest.com/news4">News 4</a>
+          </header>
+          <p>This is the news summary.</p>
+      </article>
+  </div>
+  <div>
+      <article>
+          <header>
+              <a href="https://dailytest.com/news5">News 5</a>
+          </header>
+          <p>This is the news summary.</p>
+      </article>
+  </div>
+</div>
+`;
+
+export const dailytestHtmPageBadMock: string = `
+<div>
+  <div>
+      <article>
+      </article>
+  </div>
+  <div>
+      <article>
+      </article>
+  </div>
+  <div>
+      <article>
+      </article>
+  </div>
+  <div>
+      <article>
+      
+      </article>
+  </div>
+  <div>
+      <article>
+          <p>This is the news summary.</p>
+      </article>
+  </div>
+</div>
 `;
