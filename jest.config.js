@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  //   setupFilesAfterEnv: ['./tests/setup.ts'],
+  setupFilesAfterEnv: ['./tests/setup.ts'],
   modulePathIgnorePatterns: ['<rootDir>/dist/'], // Ignore compiled JS files
   collectCoverage: true, // Enable coverage collection
   coverageReporters: ['json', 'lcov', 'text', 'clover'], // Output formats
