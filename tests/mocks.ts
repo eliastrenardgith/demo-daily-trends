@@ -62,3 +62,27 @@ export const searchFeedResult: IPagination = {
   totalPages: 1,
   items: [savedFeedMock, updatedFeedMock],
 };
+
+export const htmlMockArticleElPais = `
+ <div>
+    <article>
+        <header>
+            <a href="https://elpais.com//article/123">Article title</a>
+        </header>
+        <p>Article summary</p>
+    </article>
+</div>   
+`;
+
+export const htmlMockArticleElMundo = `
+ <div>
+    <article>
+        <header>
+            <a href="https://elmundo.es/article/123">
+                <h2>Article title</h2>
+            </a>
+        </header>
+        <p>Article summary</p>
+    </article>
+</div>   
+`;
