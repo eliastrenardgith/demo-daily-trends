@@ -124,6 +124,22 @@ describe('UserService', () => {
     });
   });
 
+  describe('findOneByUrl', () => {
+    it('should find one feed by its URL', async () => {
+      (FeedModel.findOne as jest.Mock).mockResolvedValue(savedFeedMock);
+
+      const foundFeed: IFeed | null = await FeedService.findOneByUrl(savedFeedMock.url);
+
+      expect(FeedModel.findOne).toHaveBeenCalledTimes(1);
+      expect(foundFeed).toEqual(savedFeedMock);
+    });
+
+    it('should propagate error finding one feed by URL', async () => {
+      (FeedModel.findOne as jest.Mock).mockRejectedValue(new Error());
+      await expect(FeedService.findOneByUrl(savedFeedMock.url)).rejects.toThrow(Error);
+    });
+  });
+
   describe('find', () => {
     it('should propagate error searching feeds', async () => {
       (FeedModel.countDocuments as jest.Mock).mockRejectedValue(new Error());
