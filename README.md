@@ -2,6 +2,12 @@
 
 A simple REST API demo, to setup and get news feed.
 
+# Application desing
+
+This diagram explain the architecture and general interaction flow of the application.
+
+![Architecture diagram](./design/app-architecture.drawio.png)
+
 # Development environment
 
 First set a .env.local environment file in the direcory root, with the following environment variables:
