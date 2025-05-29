@@ -9,6 +9,7 @@ import {
   newsMock4,
   newsMock5,
   savedFeedMock,
+  scrapedNewsMock,
   searchFeedResult,
   updatedFeedMock,
   updateFeedDtoMock,
@@ -38,13 +39,7 @@ describe('UserService', () => {
   describe('createOne', () => {
     it('should create one feed', async () => {
       (FeedModel.prototype.save as jest.Mock).mockResolvedValue(savedFeedMock);
-      (FeedReaderService.extractNews as jest.Mock).mockResolvedValue([
-        newsMock1,
-        newsMock2,
-        newsMock3,
-        newsMock4,
-        newsMock5,
-      ]);
+      (FeedReaderService.extractNews as jest.Mock).mockResolvedValue(scrapedNewsMock);
 
       const newFeed: IFeed = await FeedService.createOne(feedDtoMock);
 
@@ -64,13 +59,7 @@ describe('UserService', () => {
   describe('updateOne', () => {
     it('should update one feed', async () => {
       (FeedModel.findByIdAndUpdate as jest.Mock).mockResolvedValue(updatedFeedMock);
-      (FeedReaderService.extractNews as jest.Mock).mockResolvedValue([
-        newsMock1,
-        newsMock2,
-        newsMock3,
-        newsMock4,
-        newsMock5,
-      ]);
+      (FeedReaderService.extractNews as jest.Mock).mockResolvedValue(scrapedNewsMock);
 
       const updatedFeed: IFeed | null = await FeedService.updateOne(savedFeedMock._id, updateFeedDtoMock);
 

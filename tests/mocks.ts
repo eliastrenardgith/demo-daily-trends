@@ -44,6 +44,8 @@ export const savedFeedMock = {
   updatedAt: new Date(),
 };
 
+export const scrapedNewsMock: INews[] = [newsMock1, newsMock2, newsMock3, newsMock4, newsMock5];
+
 export const updateFeedDtoMock: CreateFeedDto = {
   url: 'https://dailytestCHANGED.com',
 };
