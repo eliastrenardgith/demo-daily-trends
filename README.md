@@ -1,6 +1,11 @@
 # Daily Trends Demo
 
-A simple REST API demo, to setup and get news feed.
+A simple REST API demo, to store news feed.
+
+So far, it has been tested with:
+
+- https://elpais.com/
+- https://www.elmundo.es/
 
 # Application desing
 
@@ -10,7 +15,15 @@ This diagram explain the architecture and general interaction flow of the applic
 
 # Development environment
 
-First set a .env.local environment file in the direcory root, with the following environment variables:
+Clone the repository.
+
+In the root directory execute
+
+```bash
+npm install
+```
+
+Create a .env.local environment file in the direcory root, with the following environment variables:
 
 ```bash
 NODE_ENV=local
