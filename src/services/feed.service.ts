@@ -38,7 +38,7 @@ class FeedService {
     }
   }
 
-  async find(pagination?: PaginationQueryDto, searchDto?: FindFeedDto): Promise<IPagination> {
+  async find(pagination?: PaginationQueryDto, searchDto?: FindFeedDto): Promise<IPagination<IFeed>> {
     try {
       let filter: any = {};
 
