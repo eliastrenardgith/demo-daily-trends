@@ -1,16 +1,21 @@
 import { Document } from 'mongoose';
 import { FindFeedDto } from '../model/dto/find-feed.dto';
 import { PaginationQueryDto } from '../model/dto/pagination-query.dto';
-import FeedModel, { IFeed, INews } from '../model/feed.schema';
+import FeedModel, { IFeed } from '../model/feed.schema';
 import { IPagination } from '../model/interfaces/pagination.interface';
-import feedReaderService from './feed-reader.service';
+import axios from 'axios';
+import { CreateFeedDto } from '../model/dto/create-feed.dto';
+import { UpdateFeedDto } from '../model/dto/update-feed.dto';
+import { RestApiError } from '../common/rest-api.error';
 
 class FeedService {
-  async createOne(dto: Partial<IFeed>): Promise<IFeed> {
+  async createOne(dto: CreateFeedDto): Promise<IFeed> {
     try {
-      const news: INews[] = await feedReaderService.extractNews(dto.url as string);
+      if (!(await this.newsExists(dto.url))) {
+        throw new RestApiError(400, `News page not found for URL: ${dto.url}`);
+      }
 
-      const newFeed = new FeedModel({ ...dto, news });
+      const newFeed = new FeedModel({ ...dto, newsPaperUrl: this.getNewsPaperUrl(dto.url) });
       return newFeed.save();
     } catch (error) {
       console.error('Error creating Feed.');
@@ -18,11 +23,13 @@ class FeedService {
     }
   }
 
-  async updateOne(id: string, dto: Partial<IFeed>): Promise<IFeed | null> {
+  async updateOne(id: string, dto: UpdateFeedDto): Promise<IFeed | null> {
     try {
-      const news: INews[] = await feedReaderService.extractNews(dto.url as string);
+      if (dto.url && !(await this.newsExists(dto.url))) {
+        throw new RestApiError(400, `News page not found for URL: ${dto.url}`);
+      }
 
-      return FeedModel.findByIdAndUpdate(id, { ...dto, news }, { new: true });
+      return FeedModel.findByIdAndUpdate(id, { ...dto }, { new: true });
     } catch (error) {
       console.error('Error updating Feed.');
       throw error;
@@ -89,6 +96,27 @@ class FeedService {
       console.error(`Error finding one feed by URL: '${url}'.`);
       throw error;
     }
+  }
+
+  /**
+   * Check if the URL works.
+   *
+   * @param newsUrl The news URL.
+   */
+  private async newsExists(newsUrl: string): Promise<boolean> {
+    try {
+      const { status } = await axios.get(newsUrl);
+
+      return status === 200;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  private getNewsPaperUrl(url: string): string {
+    const urlObj: URL = new URL(url);
+
+    return urlObj.origin;
   }
 }
 

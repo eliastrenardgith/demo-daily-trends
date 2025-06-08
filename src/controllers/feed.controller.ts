@@ -71,7 +71,7 @@ export class FeedController {
         errorMessage = ERROR_MESSAGE_DUPLICATED_URL;
       }
 
-      next(new RestApiError(statusCode, errorMessage, { error }));
+      next(error instanceof RestApiError ? error : new RestApiError(statusCode, errorMessage, { error }));
     }
   }
 
@@ -105,7 +105,7 @@ export class FeedController {
         errorMessage = ERROR_MESSAGE_DUPLICATED_URL;
       }
 
-      next(new RestApiError(statusCode, errorMessage, { error }));
+      next(error instanceof RestApiError ? error : new RestApiError(statusCode, errorMessage, { error }));
     }
   }
 
