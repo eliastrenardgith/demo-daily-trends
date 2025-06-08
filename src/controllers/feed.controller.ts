@@ -20,14 +20,15 @@ export class FeedController {
     try {
       const { limit, page, searchTerm } = request.query;
 
-      response
-        .status(200)
-        .json(
-          await feedService.find(
-            { limit: Number.parseInt(limit as string), page: Number.parseInt(page as string) },
-            { searchTerm: searchTerm as string },
-          ),
-        );
+      response.status(200).json(
+        await feedService.find(
+          {
+            ...(typeof limit === 'string' ? { limit } : {}),
+            ...(typeof page === 'string' ? { page } : {}),
+          },
+          { searchTerm: searchTerm as string },
+        ),
+      );
     } catch (error: any) {
       next(new RestApiError(500, 'Error fetching feeds.', { error }));
     }

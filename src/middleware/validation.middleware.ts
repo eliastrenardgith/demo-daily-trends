@@ -48,9 +48,9 @@ function validationMiddleware<T extends object>(dtoClass: new () => T, requestPr
         requestPart = request.body;
         break;
 
-      // case RequestPropertyNameEnum.query:
-      //   requestPart = request.query;
-      //   break;
+      case RequestPropertyNameEnum.query:
+        requestPart = request.query;
+        break;
 
       case RequestPropertyNameEnum.params:
         requestPart = request.params;
@@ -65,7 +65,7 @@ function validationMiddleware<T extends object>(dtoClass: new () => T, requestPr
     // Detect errors using class-validator.
     const errors: ValidationError[] = await validate(dtoInstance, {
       whitelist: true, // Strip properties that are not defined in the DTO
-      forbidNonWhitelisted: true, // Throw error if non-whitelisted properties are sent
+      // forbidNonWhitelisted: true, // Throw error if non-whitelisted properties are sent
     });
 
     if (errors.length > 0) {

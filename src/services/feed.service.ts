@@ -58,11 +58,11 @@ class FeedService {
         };
       }
 
-      const limit: number = pagination?.limit || 5;
-      const page: number = pagination?.page || 1;
+      const limit: number = pagination?.limit ? +pagination.limit : 5;
+      const page: number = pagination?.page ? +pagination.page : 1;
       const skip: number = (page - 1) * limit;
 
-      const totalFound = await FeedModel.countDocuments();
+      const totalFound = await FeedModel.countDocuments(filter);
 
       const feeds: IFeed[] = await FeedModel.find(filter).skip(skip).limit(limit);
 
