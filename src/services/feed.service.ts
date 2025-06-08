@@ -47,16 +47,37 @@ class FeedService {
 
   async find(pagination?: PaginationQueryDto, searchDto?: FindFeedDto): Promise<IPagination<IFeed>> {
     try {
-      let filter: any = {};
+      let newsPaperFilter: any[] = [];
+      let contentfilter: any[] = [];
+
+      if (searchDto?.newsPaper) {
+        newsPaperFilter = [{ newsPaperUrl: { $regex: new RegExp(searchDto.newsPaper, 'i') } }];
+      }
 
       if (searchDto?.searchTerm) {
         // A regular expression to match case-sensitive.
         const searchRegex = new RegExp(searchDto.searchTerm, 'i');
 
-        filter = {
-          $or: [{ url: { $regex: searchRegex } }, { name: { $regex: searchRegex } }],
-        };
+        contentfilter = [
+          { url: { $regex: searchRegex } },
+          { title: { $regex: searchRegex } },
+          { summary: { $regex: searchRegex } },
+        ];
       }
+
+      let filter: any = {};
+
+      if (newsPaperFilter.length > 0 && contentfilter.length > 0) {
+        filter = {
+          $and: [...newsPaperFilter, { $or: [...contentfilter] }],
+        };
+      } else if (newsPaperFilter.length > 0 && contentfilter.length === 0) {
+        filter = { ...newsPaperFilter };
+      } else if (newsPaperFilter.length === 0 && contentfilter.length > 0) {
+        filter = { $or: [...contentfilter] };
+      }
+
+      console.debug(JSON.stringify({ searchDto, filter }));
 
       const limit: number = pagination?.limit ? +pagination.limit : 5;
       const page: number = pagination?.page ? +pagination.page : 1;
