@@ -18,7 +18,7 @@ const ERROR_MESSAGE_DUPLICATED_URL = 'Conflict: A Feed with that URL already exi
 export class FeedController {
   async get(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
-      const { limit, page, searchTerm } = request.query;
+      const { limit, page, searchTerm, newsPaper } = request.query;
 
       response.status(200).json(
         await feedService.find(
@@ -26,7 +26,10 @@ export class FeedController {
             ...(typeof limit === 'string' ? { limit } : {}),
             ...(typeof page === 'string' ? { page } : {}),
           },
-          { searchTerm: searchTerm as string },
+          {
+            ...(typeof searchTerm === 'string' ? { searchTerm } : {}),
+            ...(typeof newsPaper === 'string' ? { newsPaper } : {}),
+          },
         ),
       );
     } catch (error: any) {
