@@ -7,8 +7,35 @@ import axios from 'axios';
 import { CreateFeedDto } from '../model/dto/create-feed.dto';
 import { UpdateFeedDto } from '../model/dto/update-feed.dto';
 import { RestApiError } from '../common/rest-api.error';
+import feedReaderService from '../services/feed-reader.service';
 
 class FeedService {
+  async extractFeeds(url: string): Promise<IFeed[]> {
+    try {
+      const newsDtos: CreateFeedDto[] = await feedReaderService.extractNews(url);
+
+      if (newsDtos.length === 0) {
+        return [];
+      }
+
+      return this.createmany(newsDtos);
+    } catch (error: any) {
+      console.error('Error extracting and/or creating Feeds.');
+      throw error;
+    }
+  }
+
+  async createmany(dtos: CreateFeedDto[]): Promise<IFeed[]> {
+    try {
+      return FeedModel.insertMany(
+        dtos.map((d: CreateFeedDto) => ({ ...d, newsPaperUrl: this.getNewsPaperUrl(d.url) })),
+      );
+    } catch (error: any) {
+      console.error('Error extracting and/or creating Feeds.');
+      throw error;
+    }
+  }
+
   async createOne(dto: CreateFeedDto): Promise<IFeed> {
     try {
       if (!(await this.newsExists(dto.url))) {

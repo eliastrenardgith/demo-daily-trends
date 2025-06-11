@@ -16,6 +16,17 @@ const responseNotFound = (response: Response) => {
 const ERROR_MESSAGE_DUPLICATED_URL = 'Conflict: A Feed with that URL already exist. Duplication is NOT ALLOWED.';
 
 export class FeedController {
+  async extractFeeds(request: Request, response: Response, next: NextFunction): Promise<void> {
+    try {
+      const feeds: IFeed[] = await feedService.extractFeeds(request.body.url);
+
+      // TODO: In case of no news found, return something else...
+      response.status(201).json(feeds);
+    } catch (error) {
+      next(new RestApiError(500, 'Error extracting feeds.', { error }));
+    }
+  }
+
   async get(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
       const { limit, page, searchTerm, newsPaper } = request.query;
